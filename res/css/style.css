@@ -1,0 +1,223 @@
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]     /* polyfill */
+{
+         /* Turns off styling - not usually needed, but good to know. */
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+ 
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+ 
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+         
+        /* Dimensions */
+        width: 200px;
+        height: 30px;
+        margin-top: 10px; 
+}
+
+video {
+    object-fit: fill;
+    width: 100%;            
+}
+a:link    {font-weight:bold; font-size:19px; font-family:Arial,Helvetica,sans-serif; color:green; background-color:transparent; text-decoration:none}  /*unvisited*/
+a:visited {color:purple; background-color:transparent; text-decoration:none}
+a:hover   {color:red; background-color:transparent; text-decoration:none}
+a:active  {color:red; background-color:transparent; text-decoration:none}
+
+label {font-weight:bold; font-size:19px; font-family:Arial,Helvetica,sans-serif; color:green}
+
+.ui-dialog-titlebar-close {       /*Boton cerrar dialog*/
+    visibility: hidden;
+}
+
+.line{
+    width: 360px;
+    height: 5px;
+    border-bottom: 1px solid black;
+    float: left;
+}
+
+/*input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color:#800080;
+    float:left;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    margin-top:7px;
+    margin-left:5px;
+    font-size:16px;
+    height:23px;
+}*/
+
+/*.file-input-wrapper {
+    float: left;
+    border: none;
+    width: 64px;
+    height: 42px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.file-input-wrapper > .btn-file-input {
+    border: none;    
+    width: 94px;
+    height: 42px;
+    cursor: pointer;
+    background-color:#800080;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    /*padding: 7px 20px 20px 10px;     
+}*/
+
+#BtnLoad2 .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnLoad2 span {
+    padding:0 !important;
+}
+
+#join-room .ui-button-text {    
+    padding:6px 0px 0px 0px;    
+}
+
+#disc-room .ui-button-text {    
+    padding:6px 0px 0px 0px;    
+}
+
+#playzone .ui-button-text {    
+    padding:6px 0px 0px 0px;    
+}
+
+#BtnSend .ui-button-text-only .ui-button-text {    
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnSend span {
+    padding:0 !important;
+}
+
+#BtnAddText .ui-button-text-only .ui-button-text {    
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnAddText span {
+    padding:0 !important;
+}
+
+#BtnDelete .ui-button-text-only .ui-button-text {    
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnDelete span {
+    padding:0 !important;
+}
+
+#BtnCutMoves .ui-button-text-only .ui-button-text {    
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnCutMoves span {
+    padding:0 !important;
+}
+
+#BtnClearAll .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnClearAll span {
+    padding:0 !important;
+}
+
+#BtnSave .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnSave span {
+    padding:0 !important;
+}
+
+#BtnRun .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnRun span {
+    padding:0 !important;
+}
+
+#BtnStop .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnStop span {
+    padding:0 !important;
+}
+
+#share-file .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#share-file span {
+    padding:0 !important;
+}
+
+.new_Btn .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;
+}
+
+.new_Btn span {
+    padding:0 !important;
+} 
+
+#BtnLoad {
+ display:none;
+}
+
+#BtnSet .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnSet span {
+    padding:0 !important;
+}
+
+#BtnFen .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnFen span {
+    padding:0 !important;
+}
+
+#BtnPGN .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnPGN span {
+    padding:0 !important;
+}
+
+/* @font-face kit by Fonts2u (https://fonts2u.com) */
+@font-face {
+    font-family:"Chess";
+    src:url("TT_CHEQ.eot?") format("eot"),url("TT_CHEQ.woff") format("woff"),url("TT_CHEQ.ttf") format("truetype"),url("TT_CHEQ.svg#") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}

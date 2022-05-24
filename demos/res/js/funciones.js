@@ -2,14 +2,7 @@ function SendChatText(){
         
     var cNickName = $('#nick-id').val();
     var cTxtChat = $('#TxtMsg').val();    
-    var cChanel = $('#room-id').val();
-                
-    /*connection.getSocket().emit('MiEvento',{
-        NickSender: cNickName,
-        CustomMessage: cTxtChat,
-        Chanel: cChanel,
-        SubEvent: 'Chat'
-    });*/
+    var cChanel = $('#room-id').val();    
 
     var oData = {Event:'Chat',Chanel:cChanel,CustomMessage:cTxtChat,NickSender:cNickName};
     var DataJSON = JSON.stringify(oData);
@@ -826,6 +819,8 @@ function MakeMove(CodiPromo){
         BufferMoveClick: BufferMoveClick,
         TipoMove: 'Normal'
     });
+
+
 
     console.log('Make Move: ' + CadenaFEN)
     if (Analizando) {
@@ -1732,7 +1727,7 @@ function MoveClick(id){
         $('#addtxt').val('');
     }
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -1743,7 +1738,17 @@ function MoveClick(id){
         //NodoPadre: -1,
         //BufferMoveClick: 0,
         TipoMove: 'TxT'
-    });
+    });*/
+
+    //alert('DataJSON');
+    
+    var cChanel = $('#room-id').val();    
+
+    var oData = {Event:'SendMove',Chanel:cChanel,Posiciones:aPosiciones,ContPosi:id,Variantes:aVariantes,FENs:aFENs,TipoMove:'TxT'};
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);  
+    
+    //alert(DataJSON);
     
     $('#'+BufferMoveClick).css('background-color','white'); 
     
@@ -3053,6 +3058,8 @@ function LoadPos(result){
         BufferMoveClick: 0,
         TipoMove: 'Load'
     });
+
+
     
     $('#BtnIni').trigger('click');
     

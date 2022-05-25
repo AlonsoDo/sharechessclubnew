@@ -807,7 +807,7 @@ function MakeMove(CodiPromo){
     
     var CadenaFEN = aFEN[0] + ' ' + aFEN[1] + ' ' + aFEN[2] + ' ' + aFEN[3] + ' ' + aFEN[4] + ' ' +aFEN[5];
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -818,9 +818,24 @@ function MakeMove(CodiPromo){
         NodoPadre: NodoPadre,
         BufferMoveClick: BufferMoveClick,
         TipoMove: 'Normal'
-    });
+    });*/
 
+    //alert('test');
+    
+    var cChanel = $('#room-id').val();    
 
+    var oData = {Event:'SendMove',
+        Chanel:cChanel,
+        Posiciones: aPosiciones,
+        ContPosi: ContPosi,
+        Variantes: aVariantes,
+        FENs: aFENs,
+        HayHermano: HayHermano,
+        NodoPadre: NodoPadre,
+        BufferMoveClick: BufferMoveClick,
+        TipoMove: 'Normal'};
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
 
     console.log('Make Move: ' + CadenaFEN)
     if (Analizando) {
@@ -3778,7 +3793,7 @@ function AddText() {
         aVariantes[ContPosi][2] = cMove + '(T)';
         aVariantes[ContPosi][3] =  $('#addtxt').val();
         
-        connection.getSocket().emit('MiEvento',{
+        /*connection.getSocket().emit('MiEvento',{
             Chanel: cChanel,
             SubEvent: 'SendMove',
             Posiciones: aPosiciones,
@@ -3789,7 +3804,22 @@ function AddText() {
             //NodoPadre: -1,
             //BufferMoveClick: 0,
             TipoMove: 'TxT'
-        });
+        });*/
+
+        var cChanel = $('#room-id').val();    
+
+        var oData = {Event:'SendMove',
+                        Chanel:cChanel,
+                        Posiciones: aPosiciones,
+                        ContPosi: ContPosi,
+                        Variantes: aVariantes,
+                        FENs: aFENs,
+                        //HayHermano: false,
+                        //NodoPadre: -1,
+                        //BufferMoveClick: 0,
+                        TipoMove: 'TxT'};
+        var DataJSON = JSON.stringify(oData);
+        connection.send(DataJSON);
     
     }
     

@@ -1239,8 +1239,7 @@ if (roomid && roomid.length) {
             var oData = JSON.parse(e.data);
             
             // Mismo Canal
-            if ((oData.Chanel)==cChanel){
-                
+            if ((oData.Chanel)==cChanel){               
                 // eventos
                 if ((oData.Event)=='Chat'){
                     $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
@@ -1250,8 +1249,9 @@ if (roomid && roomid.length) {
                     $('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
                     $('#TxtMsg').val('');
                 }else if ((oData.Event)=='SendMove'){
-                    if (!Analizando)
-                        GetMove(e.data);
+                    if (!Analizando){
+                        GetMove(oData);
+                    }                        
                 }
 
 
@@ -1260,7 +1260,7 @@ if (roomid && roomid.length) {
 
             } // End Mismo Canal
 
-        };
+        }; // End onmessage
         
         connection.onopen = function() {
             document.getElementById('share-file').disabled = false;
@@ -1333,9 +1333,9 @@ if (roomid && roomid.length) {
             video.parentNode.removeChild(video);
         }*/
             
-	};
+	    };
 	
-	//Asignar los eventos aqui para que funcione el socket.on(connection.socketCustomEvent, function(message) {
+	    //Asignar los eventos aqui para que funcione el socket.on(connection.socketCustomEvent, function(message) {
         connection.socketCustomEvent = 'MiEvento';
         
         connection.connectSocket(function(socket){                        

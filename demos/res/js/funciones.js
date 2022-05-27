@@ -834,6 +834,7 @@ function MakeMove(CodiPromo){
         NodoPadre: NodoPadre,
         BufferMoveClick: BufferMoveClick,
         TipoMove: 'Normal'};
+
     var DataJSON = JSON.stringify(oData);
     connection.send(DataJSON);
 
@@ -1010,10 +1011,20 @@ function CargarRecursos(){
             }else if (e.target.name == 'rectBlack') {
                 DibujarCasillas();
                 aColorCas = [];
-                connection.getSocket().emit('MiEvento',{
-                Chanel: cChanel,
-                SubEvent: 'SendBorrarCas'        
-            });
+
+                /*connection.getSocket().emit('MiEvento',{
+                    Chanel: cChanel,
+                    SubEvent: 'SendBorrarCas'
+                });*/
+
+                var cChanel = $('#room-id').val();    
+
+                var oData = {Event:'SendBorrarCas',
+                            Chanel:cChanel};
+
+                var DataJSON = JSON.stringify(oData);
+                connection.send(DataJSON);
+
             }
         }
     });
@@ -1816,7 +1827,7 @@ function MoveClick(id){
     BufferMoveClick = id;
     ClickOnMove = true;
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'MoveClickEvent',
         Posiciones: aPosiciones,
@@ -1825,7 +1836,22 @@ function MoveClick(id){
         FENs: aFENs,               
         NodoPadre: NodoPadre,
         BufferMoveClick: BufferMoveClick
-    });    
+    }); */  
+    
+    var cChanel = $('#room-id').val();    
+
+    var oData = {Event:'MoveClickEvent',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: ContPosi,
+                Variantes: aVariantes, 
+                FENs: aFENs,               
+                NodoPadre: NodoPadre,
+                BufferMoveClick: BufferMoveClick            
+            };
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
     
 }
 
@@ -1914,7 +1940,7 @@ function MoveClick2(id){
     
     $('#'+id).css('background-color','yellow');
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'MoveClick2Event',
         Posiciones: aPosiciones,
@@ -1923,7 +1949,23 @@ function MoveClick2(id){
         FENs: aFENs,               
         NodoPadre: NodoPadre,
         BufferMoveClick: BufferMoveClick
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();    
+
+    var oData = {Event:'MoveClick2Event',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: ContPosi,
+                Variantes: aVariantes, 
+                FENs: aFENs,               
+                NodoPadre: NodoPadre,
+                BufferMoveClick: BufferMoveClick            
+            };
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
+    
     
 }
 

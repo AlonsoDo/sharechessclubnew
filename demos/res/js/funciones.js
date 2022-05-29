@@ -1964,8 +1964,7 @@ function MoveClick2(id){
             };
 
     var DataJSON = JSON.stringify(oData);
-    connection.send(DataJSON);
-    
+    connection.send(DataJSON);    
     
 }
 
@@ -2014,7 +2013,7 @@ function MoveClick5(id){
     
     $('#'+id).css('background-color','yellow');
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'MoveClick5Event',
         Posiciones: aPosiciones,
@@ -2023,7 +2022,22 @@ function MoveClick5(id){
         FENs: aFENs,               
         NodoPadre: NodoPadre,
         BufferMoveClick: BufferMoveClick
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();
+
+    var oData = {Event:'MoveClick5Event',
+                Chanel: cChanel,
+                SubEvent: 'MoveClick5Event',
+                Posiciones: aPosiciones,
+                ContPosi: ContPosi,
+                Variantes: aVariantes, 
+                FENs: aFENs,               
+                NodoPadre: NodoPadre,
+                BufferMoveClick: BufferMoveClick};
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
     
 }
 
@@ -3042,7 +3056,7 @@ function SavePos(){
     
     var blob = new Blob([JSON.stringify(aObjAll)],{type:'text/plain;charset=utf-8'});
     
-    saveAs(blob,$('#room-id').val());
+    saveAs(blob,$('#room-id').val()+'.txt');
     
 }
 
@@ -3103,7 +3117,7 @@ function LoadPos(result){
     
     DrawPos();
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -3114,10 +3128,24 @@ function LoadPos(result){
         NodoPadre: -1,
         BufferMoveClick: 0,
         TipoMove: 'Load'
-    });
+    });*/
 
+    var cChanel = $('#room-id').val();    
 
-    
+    var oData = {Event:'SendMove',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: 0,
+                Variantes: aVariantes,
+                FENs: aFENs,
+                HayHermano: false,
+                NodoPadre: -1,
+                BufferMoveClick: 0,
+                TipoMove: 'Load'};
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
+
     $('#BtnIni').trigger('click');
     
 }
@@ -3141,7 +3169,7 @@ function ClearAll(){
     
     Click1 = false;      
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -3152,7 +3180,24 @@ function ClearAll(){
         NodoPadre: -1,
         BufferMoveClick: 0,
         TipoMove: 'ClearAll'
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();
+
+    var oData = ({Event:'SendMove',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: 0,
+                Variantes: aVariantes,
+                FENs: aFENs,
+                HayHermano: false,
+                NodoPadre: -1,
+                BufferMoveClick: 0,
+                TipoMove: 'ClearAll'
+            });                
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
     
 }
 
@@ -3387,7 +3432,7 @@ function IntroFen(){
     $('#BtnNext').hide();
     $('#BtnPrev').hide();    
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -3398,7 +3443,24 @@ function IntroFen(){
         BufferMoveClick: 0,
         TipoMove: 'FEN',
         FENs: aFENs
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();
+
+    var oData = ({Event:'SendMove',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: 0,
+                Variantes: aVariantes,
+                HayHermano: false,
+                NodoPadre: -1,
+                BufferMoveClick: 0,
+                TipoMove: 'FEN',
+                FENs: aFENs
+            });                
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
 
     $('#BtnIni').trigger('click');
     
@@ -3729,7 +3791,7 @@ function CargarPGN() {
     $('#BtnNext').show();
     $('#BtnPrev').show();
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendMove',
         Posiciones: aPosiciones,
@@ -3741,7 +3803,25 @@ function CargarPGN() {
         BufferMoveClick: BufferMoveClick,
         TipoMove: 'LoadPGN',
         Promo : aPromo
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();
+
+    var oData = ({Event:'SendMove',
+                Chanel:cChanel,
+                Posiciones: aPosiciones,
+                ContPosi: ContPosi,
+                Variantes: aVariantes,
+                FENs: aFENs,
+                HayHermano: false,
+                NodoPadre: NodoPadre,
+                BufferMoveClick: BufferMoveClick,
+                TipoMove: 'LoadPGN',
+                Promo : aPromo
+            });                
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
     
     NodoPadre = -1;
     BufferNodoPadre = -1;
@@ -3803,12 +3883,23 @@ function FillChatPGNHeaders(Nick,Txt) {
     var cNickName = Nick;
     var cTxtChat = Txt;   
                 
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         NickSender: cNickName,
         CustomMessage: cTxtChat,
         Chanel: cChanel,
         SubEvent: 'Chat'
-    });    
+    });*/ 
+    
+    var cChanel = $('#room-id').val();
+
+    var oData = ({NickSender: cNickName,
+                CustomMessage: cTxtChat,
+                Chanel: cChanel,
+                Event: 'Chat'
+            });                
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
                 
     $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
                             cNickName + ': ' + '</span>' + 

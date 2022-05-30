@@ -4104,11 +4104,20 @@ function RecolocarRect() {
 
 function SendRect(aColorCas){
     
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'SendColorCas',
         aColorCas: aColorCas        
-    });
+    });*/
+
+    var cChanel = $('#room-id').val();    
+
+    var oData = {Chanel: cChanel,
+                Event: 'SendColorCas',
+                aColorCas: aColorCas};
+
+    var DataJSON = JSON.stringify(oData);
+    connection.send(DataJSON);
     
 }
 
@@ -4191,7 +4200,7 @@ function DeleteMove(){
             
         }
                         
-        connection.getSocket().emit('MiEvento',{
+        /*connection.getSocket().emit('MiEvento',{
             Chanel: cChanel,
             SubEvent: 'BtnPrevEvent',
             Posiciones: aPosiciones,
@@ -4202,7 +4211,23 @@ function DeleteMove(){
             BufferMoveClick: BufferMoveClick,
             ContPosi2: ContPosi2,
             NodoPadre2: NodoPadre2
-        });
+        });*/
+
+        var cChanel = $('#room-id').val();    
+
+        var oData = {Chanel: cChanel,
+                    Event: 'BtnPrevEvent',
+                    Posiciones: aPosiciones,
+                    ContPosi: ContPosi,
+                    Variantes: aVariantes,  
+                    FENs: aFENs,              
+                    NodoPadre: NodoPadre,
+                    BufferMoveClick: BufferMoveClick,
+                    ContPosi2: ContPosi2,
+                    NodoPadre2: NodoPadre2};
+
+        var DataJSON = JSON.stringify(oData);
+        connection.send(DataJSON);
         
         ShowLineBack(0);            
         
@@ -4318,6 +4343,8 @@ function RestorePosi(Nodo) {
         ContPosi2: ContPosi2,
         NodoPadre2: NodoPadre2
     });
+
+
     
 }
 

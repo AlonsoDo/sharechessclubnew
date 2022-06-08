@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>ShareChessClub v1.0.0 beta</title>
+  <title>ShareChessClub v1.0.1 beta</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
@@ -197,7 +197,7 @@
 
 <div style=" background-color:#e8e8e8; border:3px white solid; width:1100px; height:50px; margin: 4px auto 0 auto;">       
     <button id="share-file" style="float:left; width:132px; height:35px; margin-left:25px; margin-top:8px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Share files between connections"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-transferthick-e-w">icon</span>Share file</button>
-    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.0 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
+    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.1 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
 </div>
 
 <div style="background-color:#e8e8e8; border:3px white solid; width:1100px; height:30px; margin: 4px auto 0 auto;">
@@ -1278,18 +1278,42 @@ if (roomid && roomid.length) {
         };        
         
         connection.onclose = function(event) {   
-            //alert('onclose');            
+            
+            //alert('onclose'); 
+            
+            Object.keys(connection.streamEvents).forEach(function(streamid) {
+                var streamEvent = connection.streamEvents[streamid];
+                if (streamEvent.userid === event.userid) {
+                    connection.onstreamended(streamEvent);
+                }
+            });
+
             //event.mediaElement.parentNode.removeChild(event.mediaElement);
 
-            var video = document.getElementById(event.streamid);
+            /*var video = document.getElementById(event.streamid);
             if (video && video.parentNode) {
                 video.parentNode.removeChild(video);
-            }
+            }*/
+
+            //alert(event.streamid); undefined
+
         };
         
         connection.onleave = function (event) { 
             
             //alert('onleave');
+            
+            Object.keys(connection.streamEvents).forEach(function(streamid) {
+                var streamEvent = connection.streamEvents[streamid];
+                if (streamEvent.userid === event.userid) {
+                    connection.onstreamended(streamEvent);
+                }
+            });
+            
+            
+            //event.mediaElement.parentNode.removeChild(event.mediaElement);
+
+            //connection.deletePeer(event.userid);
             
             // if room moderator left
             /*if (event.userid === connection.sessionid) {
@@ -1315,7 +1339,7 @@ if (roomid && roomid.length) {
             
             //event.mediaElement.parentNode.removeChild(event.mediaElement);
             
-             //var streamEvent = connection.streamEvents[connection.sessionid];
+            //var streamEvent = connection.streamEvents[connection.sessionid];
             //connection.onstreamended(streamEvent);                
             
             //Object.keys(connection.streamEvents).forEach(function(streamid) {
@@ -1331,19 +1355,23 @@ if (roomid && roomid.length) {
                         
         };
         
-        //Cierra la ventana negra
+        //Cierra la ventana negra o congelada
 	    connection.onstreamended = function(e) {    
 	    
-        //alert('onstreamended');
-        
-        //e.mediaElement.parentNode.removeChild(e.mediaElement);  
-            
-        /*var video = document.getElementById(e.streamid);
-        if (video && video.parentNode) {
-            video.parentNode.removeChild(video);
-        }*/
+            //alert('onstreamended');
+                        
+            e.mediaElement.parentNode.removeChild(e.mediaElement);  
+
+            /*var video = document.getElementById(e.streamid);
+            if (video && video.parentNode) {
+                video.parentNode.removeChild(video);
+            }*/
+
+            //alert(e.streamid);
             
 	    };
+
+        
 	
 	    //Asignar los eventos aqui para que funcione el socket.on(connection.socketCustomEvent, function(message) {
         connection.socketCustomEvent = 'MiEvento';

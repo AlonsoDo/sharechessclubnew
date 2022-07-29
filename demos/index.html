@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>ShareChessClub v1.0.1 beta</title>
+  <title>ShareChessClub v1.0.2 beta</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
@@ -20,8 +20,8 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
-  <meta name="description" content="Share Chess Room using audio, video along with text chat and filesharing with RTCMultiConnection v3.0 lib" />
-  <meta name="keywords" content="Chess,Lesson,OnLine,by Internet,Virtual,Web,Video,Chat,Audio,File,Share,Board" />
+  <meta name="description" content="Video chat sharing chess board in real time" />
+  <meta name="keywords" content="Chess,Lesson,OnLine,by Internet,Virtual,Web,Video Chat,Audio,File,Share,Board" />
   
   <link rel="stylesheet" href="res/css/style.css">
   
@@ -197,7 +197,7 @@
 
 <div style=" background-color:#e8e8e8; border:3px white solid; width:1100px; height:50px; margin: 4px auto 0 auto;">       
     <button id="share-file" style="float:left; width:132px; height:35px; margin-left:25px; margin-top:8px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Share files between connections"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-transferthick-e-w">icon</span>Share file</button>
-    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.1 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
+    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.2 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
 </div>
 
 <div style="background-color:#e8e8e8; border:3px white solid; width:1100px; height:30px; margin: 4px auto 0 auto;">
@@ -367,6 +367,9 @@ document.getElementById('open-or-join-room').onclick = function() {
     });
     $('#btn-leave-room').show();
     $('#open-or-join-room').hide();
+
+    $('#cargandoconexion').show();
+	$('#cargarloader').show();
 };
 
 document.getElementById('btn-leave-room').onclick = function() {
@@ -486,6 +489,9 @@ connection.iceServers = [{
 connection.videosContainer = document.getElementById('videos-container');
  
 connection.onstream = function(event) {
+
+    //alert('Test');
+
     event.mediaElement.removeAttribute('src');
     event.mediaElement.removeAttribute('srcObject');
 
@@ -510,7 +516,7 @@ connection.onstream = function(event) {
         mediaElement.media.play();
     }, 5000);
 
-    mediaElement.id = event.streamid;
+    mediaElement.id = event.streamid;    
 };
 
 /*connection.onstreamended = function(event) {
@@ -1195,7 +1201,9 @@ if (roomid && roomid.length) {
         
         var videosContainer = document.getElementById('videos-container');                
         
-        connection.onstream = function(event) {            
+        connection.onstream = function(event) {      
+            
+            //alert('Test');
             
             var div = document.getElementById(event.userid);
             if (div) {

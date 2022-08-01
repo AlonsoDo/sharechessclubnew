@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>ShareChessClub v1.0.2 beta</title>
+  <title>ShareChessClub v1.0.3 beta</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
@@ -197,7 +197,7 @@
 
 <div style=" background-color:#e8e8e8; border:3px white solid; width:1100px; height:50px; margin: 4px auto 0 auto;">       
     <button id="share-file" style="float:left; width:132px; height:35px; margin-left:25px; margin-top:8px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Share files between connections"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-transferthick-e-w">icon</span>Share file</button>
-    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.2 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
+    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.3 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
 </div>
 
 <div style="background-color:#e8e8e8; border:3px white solid; width:1100px; height:30px; margin: 4px auto 0 auto;">
@@ -1798,7 +1798,7 @@ if (roomid && roomid.length) {
                         
             $('#'+BufferMoveClick).css('background-color','white');             
             
-            connection.getSocket().emit('MiEvento',{
+            /*connection.getSocket().emit('MiEvento',{
                 Chanel: cChanel,
                 SubEvent: 'BtnPrevEvent',
                 Posiciones: aPosiciones,
@@ -1809,7 +1809,31 @@ if (roomid && roomid.length) {
                 BufferMoveClick: BufferMoveClick,
                 ContPosi2: ContPosi2,
                 NodoPadre2: NodoPadre2
-            });
+            });*/
+
+
+
+
+            var cChanel = $('#room-id').val();    
+
+            var oData = {Chanel: cChanel,
+                Event: 'BtnPrevEvent',
+                Posiciones: aPosiciones,
+                ContPosi: ContPosi,
+                Variantes: aVariantes, 
+                FENs: aFENs,               
+                NodoPadre: NodoPadre,
+                BufferMoveClick: BufferMoveClick,
+                ContPosi2: ContPosi2,
+                NodoPadre2: NodoPadre2};
+
+            var DataJSON = JSON.stringify(oData);
+            connection.send(DataJSON);
+
+
+
+
+
             
             ShowLineBack(0);            
             

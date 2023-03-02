@@ -397,12 +397,14 @@ document.getElementById('btn-leave-room').onclick = function() {
                             '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
                             'You have leave the room.' + '</span><br>');
     $('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
-            /*connection.getSocket().emit('MiEvento',{
-                    NickSender: $('#nick-id').val(),
-                    CustomMessage: '',
-                    Chanel: cChanel,
-                    SubEvent: 'Closed'
-            });*/                        
+            
+    connection.getSocket().emit('MiEvento',{
+            NickSender: $('#nick-id').val(),
+            CustomMessage: '',
+            Chanel: cChanel,
+            SubEvent: 'Closed'
+    });
+
     window.location.search = "&roomname=" + $('#room-id').val() + "&nickname=" + $('#nick-id').val();
 };
 
@@ -1392,13 +1394,15 @@ if (roomid && roomid.length) {
                 //Eventos, por el mismo canal
                 if (Message.Chanel==cChanel){                    
                     
-                    if (Message.SubEvent == 'Chat') {                       
+                    if (Message.SubEvent == 'Chat') {
+                        
+                        //alert('ChatRecived');
                     
-                        /*$('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
+                        $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
                                             Message.NickSender + ': ' + '</span>' + 
                                             '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
                                             Message.CustomMessage + '</span><br>');
-                        $('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);*/
+                        $('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
                                         
                     }else if (Message.SubEvent == 'Join') {
                         
@@ -1549,25 +1553,27 @@ if (roomid && roomid.length) {
             }
             
             DrawPos();
-            
-            /*connection.getSocket().emit('MiEvento',{
-                Chanel: cChanel,
-                SubEvent: 'BtnIniEvent',
-                Posiciones: aPosiciones,                
-                Variantes: aVariantes,
-                FENs: aFENs                
-            });*/
 
+            //alert('test');
+            
             var cChanel = $('#room-id').val();    
 
-            var oData = {Chanel: cChanel,
+            /*var oData = {Chanel: cChanel,
                         Event: 'BtnIniEvent',
                         Posiciones: aPosiciones,                
                         Variantes: aVariantes,
                         FENs: aFENs};
 
             var DataJSON = JSON.stringify(oData);
-            connection.send(DataJSON);
+            connection.send(DataJSON);*/
+
+            connection.getSocket().emit('MiEvento',{
+                Chanel: cChanel,
+                SubEvent: 'BtnIniEvent',
+                Posiciones: aPosiciones,                
+                Variantes: aVariantes,
+                FENs: aFENs                
+            });
                        
         });
         

@@ -21,7 +21,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="description" content="Video chat sharing chess board in real time" />
-  <meta name="keywords" content="Chess,Lesson,OnLine,by Internet,Virtual,Web,Video Chat,Audio,File,Share,Board" />
+  <meta name="keywords" content="Chess,Board,Lesson,OnLine,by Internet,Virtual,Web,Video,Chat,Audio,File,Share" />
   
   <link rel="stylesheet" href="res/css/style.css">
   
@@ -450,7 +450,9 @@ document.getElementById('share-file').onclick = function() {
 var connection = new RTCMultiConnection();
 
 // by default, socket.io server is assumed to be deployed on your own URL
-connection.socketURL = '/';
+//connection.socketURL = '/';
+
+connection.socketURL = 'https://sharechessclub.herokuapp.com/';
 
 // comment-out below line if you do not have your own socket.io server
 // connection.socketURL = 'https://muazkhan.com:9001/';

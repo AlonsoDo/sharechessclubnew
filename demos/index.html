@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>ShareChessClub v1.0.3 beta</title>
+  <title>ShareChessClub v1.0.4 beta</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
@@ -197,7 +197,7 @@
 
 <div style=" background-color:#e8e8e8; border:3px white solid; width:1100px; height:50px; margin: 4px auto 0 auto;">       
     <button id="share-file" style="float:left; width:132px; height:35px; margin-left:25px; margin-top:8px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Share files between connections"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-transferthick-e-w">icon</span>Share file</button>
-    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.3 beta by ApoloSoft (c) 2022 Contact: alonso.caspi@gmail.com</label>
+    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.4 beta by ApoloSoft (c) 2023 Contact: alonso.caspi@gmail.com</label>
 </div>
 
 <div style="background-color:#e8e8e8; border:3px white solid; width:1100px; height:30px; margin: 4px auto 0 auto;">
@@ -338,8 +338,6 @@
 
 
 
-
-
 <script>
 window.enableAdapter = true; // enable adapter.js
 
@@ -452,10 +450,10 @@ var connection = new RTCMultiConnection();
 // by default, socket.io server is assumed to be deployed on your own URL
 //connection.socketURL = '/';
 
-connection.socketURL = 'https://sharechessclub.herokuapp.com/';
+//connection.socketURL = 'https://sharechessclub.herokuapp.com/';
 
 // comment-out below line if you do not have your own socket.io server
-// connection.socketURL = 'https://muazkhan.com:9001/';
+connection.socketURL = 'https://muazkhan.com:9001/';
 
 connection.socketMessageEvent = 'audio-video-file-chat-demo';
 
@@ -619,6 +617,10 @@ if (localStorage.getItem(connection.socketMessageEvent)) {
 } else {
     roomid = connection.token();
 }
+
+roomid = roomid.substring(0, 4);
+//alert(roomid);
+
 document.getElementById('room-id').value = roomid;
 document.getElementById('room-id').onkeyup = function() {
     localStorage.setItem(connection.socketMessageEvent, this.value);
@@ -630,12 +632,19 @@ if (hashString.length && hashString.indexOf('comment-') == 0) {
 }
 
 var roomid = params.roomid;
+
+roomid = roomid.substring(0, 4);
+
+//alert(roomid);
+
 if (!roomid && hashString.length) {
     roomid = hashString;
+    //alert(hashString);
 }
 
-if (roomid && roomid.length) {
+if (roomid && roomid.length) {    
     document.getElementById('room-id').value = roomid;
+    //alert(roomid)
     localStorage.setItem(connection.socketMessageEvent, roomid);
 
     // auto-join-room
@@ -1176,9 +1185,9 @@ if (roomid && roomid.length) {
         }
         
         if ($.urlParam('roomname') == null){
-            document.getElementById('room-id').value = connection.token(); 
+            document.getElementById('room-id').value = connection.token().substring(0,4); 
         }else{
-            document.getElementById('room-id').value = $.urlParam('roomname');
+            document.getElementById('room-id').value = $.urlParam('roomname').substring(0,4);
         }
 
         if ($.urlParam('nickname') == null){
@@ -1186,7 +1195,7 @@ if (roomid && roomid.length) {
         }else{
             $('#nick-id').val($.urlParam('nickname'));
         }
-        
+
         connection.channel = document.getElementById('room-id').value;
         cChanel = $('#room-id').val();
         

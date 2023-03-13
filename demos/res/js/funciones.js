@@ -4,16 +4,16 @@ function SendChatText(){
     var cTxtChat = $('#TxtMsg').val();    
     var cChanel = $('#room-id').val();    
 
-    /*var oData = {Event:'Chat',Chanel:cChanel,CustomMessage:cTxtChat,NickSender:cNickName};
+    var oData = {Event:'Chat',Chanel:cChanel,CustomMessage:cTxtChat,NickSender:cNickName};
     var DataJSON = JSON.stringify(oData);
-    connection.send(DataJSON);*/
+    connection.send(DataJSON);
 
-    connection.getSocket().emit('MiEvento',{
+    /*connection.getSocket().emit('MiEvento',{
         Chanel: cChanel,
         SubEvent: 'Chat',
         CustomMessage:cTxtChat,
         NickSender:cNickName                        
-    });
+    });*/
                 
     $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
                             cNickName + ': ' + '</span>' + 

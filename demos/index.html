@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>ShareChessClub v1.0.5 beta</title>
+  <title>ShareChessClub v1.0.6 beta</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
@@ -197,7 +197,7 @@
 
 <div style=" background-color:#e8e8e8; border:3px white solid; width:1100px; height:50px; margin: 4px auto 0 auto;">       
     <button id="share-file" style="float:left; width:132px; height:35px; margin-left:25px; margin-top:8px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Share files between connections"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-transferthick-e-w">icon</span>Share file</button>
-    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.5 beta by ApoloSoft (c) 2023 Contact: alonso.caspi@gmail.com</label>
+    <label style="color:green; float:left; margin-left:120px; margin-top:18px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:15px">ShareChessClub version 1.0.6 beta by ApoloSoft (c) 2023 Contact: alonso.caspi@gmail.com</label>
 </div>
 
 <div style="background-color:#e8e8e8; border:3px white solid; width:1100px; height:30px; margin: 4px auto 0 auto;">
@@ -1631,22 +1631,22 @@ if (roomid && roomid.length) {
 
             var cChanel = $('#room-id').val();    
 
-            var oData = {Chanel: cChanel,
+            /*var oData = {Chanel: cChanel,
                         Event: 'BtnIniEvent',
                         Posiciones: aPosiciones,                
                         Variantes: aVariantes,
                         FENs: aFENs};
 
             var DataJSON = JSON.stringify(oData);
-            connection.send(DataJSON);
+            connection.send(DataJSON);*/
 
-            /*connection.getSocket().emit('MiEvento',{
+            connection.getSocket().emit('MiEvento',{
                 Chanel: cChanel,
                 SubEvent: 'BtnIniEvent',
                 Posiciones: aPosiciones,                
                 Variantes: aVariantes,
                 FENs: aFENs                
-            });*/
+            });
                        
         });
         
@@ -1654,7 +1654,9 @@ if (roomid && roomid.length) {
             
             FinalLine();
             
-            /*connection.getSocket().emit('MiEvento',{
+            var cChanel = $('#room-id').val(); 
+            
+            connection.getSocket().emit('MiEvento',{
                 Chanel: cChanel,
                 SubEvent: 'BtnEndEvent',
                 Posiciones: aPosiciones,
@@ -1663,11 +1665,9 @@ if (roomid && roomid.length) {
                 Variantes: aVariantes,                
                 NodoPadre: NodoPadre,
                 BufferMoveClick: BufferMoveClick
-            });*/ 
+            });
             
-            var cChanel = $('#room-id').val();    
-
-            var oData = {Chanel: cChanel,
+            /*var oData = {Chanel: cChanel,
                         Event: 'BtnEndEvent',
                         Posiciones: aPosiciones,
                         ContPosi: ContPosi,
@@ -1677,7 +1677,7 @@ if (roomid && roomid.length) {
                         BufferMoveClick: BufferMoveClick};
 
             var DataJSON = JSON.stringify(oData);
-            connection.send(DataJSON);
+            connection.send(DataJSON);*/
 
             var aFEN = aFENs[ContPosi];
             var CadenaFEN = aFEN[0] + ' ' + aFEN[1] + ' ' + aFEN[2] + ' ' + aFEN[3] + ' ' + aFEN[4] + ' ' +aFEN[5];
@@ -1695,7 +1695,9 @@ if (roomid && roomid.length) {
         
         $('#BtnNext').click(function(){
             
-            /*connection.getSocket().emit('MiEvento',{
+            var cChanel = $('#room-id').val();
+            
+            connection.getSocket().emit('MiEvento',{
                 Chanel: cChanel,
                 SubEvent: 'BtnNextEvent',
                 Posiciones: aPosiciones,
@@ -1706,11 +1708,9 @@ if (roomid && roomid.length) {
                 BufferMoveClick: BufferMoveClick,
                 SobreVariante: SobreVariante,
                 VarianteDesplegada: VarianteDesplegada
-            });*/
+            });
 
-            var cChanel = $('#room-id').val();    
-
-            var oData = {Chanel: cChanel,
+            /*var oData = {Chanel: cChanel,
                         Event: 'BtnNextEvent',
                         Posiciones: aPosiciones,
                         ContPosi: ContPosi,
@@ -1722,7 +1722,7 @@ if (roomid && roomid.length) {
                         VarianteDesplegada: VarianteDesplegada};
 
             var DataJSON = JSON.stringify(oData);
-            connection.send(DataJSON);
+            connection.send(DataJSON);*/
             
             var HayHermano = false;
             var ContHermanos = 0;
@@ -1877,7 +1877,9 @@ if (roomid && roomid.length) {
                         
             $('#'+BufferMoveClick).css('background-color','white');             
             
-            /*connection.getSocket().emit('MiEvento',{
+            var cChanel = $('#room-id').val();
+            
+            connection.getSocket().emit('MiEvento',{
                 Chanel: cChanel,
                 SubEvent: 'BtnPrevEvent',
                 Posiciones: aPosiciones,
@@ -1888,14 +1890,9 @@ if (roomid && roomid.length) {
                 BufferMoveClick: BufferMoveClick,
                 ContPosi2: ContPosi2,
                 NodoPadre2: NodoPadre2
-            });*/
+            });
 
-
-
-
-            var cChanel = $('#room-id').val();    
-
-            var oData = {Chanel: cChanel,
+            /*var oData = {Chanel: cChanel,
                 Event: 'BtnPrevEvent',
                 Posiciones: aPosiciones,
                 ContPosi: ContPosi,
@@ -1907,12 +1904,7 @@ if (roomid && roomid.length) {
                 NodoPadre2: NodoPadre2};
 
             var DataJSON = JSON.stringify(oData);
-            connection.send(DataJSON);
-
-
-
-
-
+            connection.send(DataJSON);*/
             
             ShowLineBack(0);            
             

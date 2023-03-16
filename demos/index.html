@@ -339,6 +339,19 @@
 
 
 <script>
+
+$('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
+                        'SYS: ' + '</span>' + 
+                        '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
+                        'Welcome to ShareChessClub.' + '</span><br>');
+$('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
+
+$('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
+                        'SYS: ' + '</span>' + 
+                        '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
+                        'You can use this chat to send and receive text messages.' + '</span><br>');
+$('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
+
 window.enableAdapter = true; // enable adapter.js
 
 // ......................................................
@@ -388,6 +401,14 @@ document.getElementById('open-or-join-room').onclick = function() {
         SubEvent: 'Join'
     }); 
 
+    //alert(connection.getAllParticipants().length);
+
+    $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
+                        'SYS: ' + '</span>' + 
+                        '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
+                        'You have connected to ' + $('#room-id').val() + ' as ' + $('#nick-id').val() + '.' + '</span><br>');
+    $('#DivTextChat').animate({scrollTop: $('#DivTextChat').prop('scrollHeight')}, 500);
+
 };
 
 document.getElementById('btn-leave-room').onclick = function() {
@@ -398,7 +419,7 @@ document.getElementById('btn-leave-room').onclick = function() {
     $('#open-or-join-room').show();
 			
     var cNickName = $('#nick-id').val();
-     $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
+    $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
                             cNickName + ': ' + '</span>' + 
                             '<span style="color:green; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">' +
                             'You have leave the room.' + '</span><br>');

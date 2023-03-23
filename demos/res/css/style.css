@@ -214,6 +214,14 @@ label {font-weight:bold; font-size:19px; font-family:Arial,Helvetica,sans-serif;
     padding:0 !important;
 }
 
+#BtnGet .ui-button-text-only .ui-button-text {
+    padding:4px 0px 0px 0px;    
+}
+
+#BtnGet span {
+    padding:0 !important;
+}
+
 /* @font-face kit by Fonts2u (https://fonts2u.com) */
 @font-face {
     font-family:"Chess";

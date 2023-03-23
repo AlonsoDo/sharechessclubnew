@@ -127,11 +127,12 @@
             <button id="BtnClearAll" style="width:96px; height:35px; margin-left:0px; margin-top:7px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Resect all the pieces for a new session"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-power">icon</span>Reset</button>
         </div>
         <div id="BtConfig" style="margin-top:20px; margin-left:17px; border:3px white solid; width:442px; height:48px;">
-            <button id="new_Btn" type="button" style="width:90px; height:35px; margin-left:6px; margin-top:7px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load a session file format" class="new_Btn"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-table">icon</span>Load</button>
+            <button id="new_Btn" type="button" style="width:88px; height:35px; margin-left:6px; margin-top:7px; padding-top:4px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load a session file format" class="new_Btn"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-table">icon</span>Load</button>
             <input id="BtnLoad" name="file" type='file'" title="Load a session file format"/>                
-            <button id="BtnSet" type="button" style="width:82px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Set a possition from a extra board"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-puzzle">icon</span>SET</button>
-            <button id="BtnFen" type="button" style="width:82px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load a FEN chess character string"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-word">icon</span>FEN</button>
-            <button id="BtnPGN" type="button" style="width:82px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load the contents of a PGN file"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-richtext">icon</span>PGN</button>
+            <button id="BtnSet" type="button" style="width:78px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Set a possition from a extra board"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-puzzle">icon</span>SET</button>
+            <button id="BtnFen" type="button" style="width:78px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load a FEN chess character string"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-word">icon</span>FEN</button>
+            <button id="BtnPGN" type="button" style="width:78px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" title="Load the contents of a PGN file"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-file-richtext">icon</span>PGN</button>
+            <button id="BtnGet" style="width:74px; height:35px; margin-left:0px; margin-top:7px; padding-top:5px; font-family:Arial,Helvetica,sans-serif; font-weight:bold;" type="button" title="Load moves collection from other participants"><span style="float:left; font-size:24px;" class="ui-icon ui-icon-refresh">icon</span>GET</button>
         </div>
     </div>
     <div id="maincenterdiv" style="float:left; margin-left:4px; background-color:#e8e8e8; border:3px white solid; width:380px; height:632px;">
@@ -276,6 +277,11 @@
     <label style="color:red; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:16px;">Click on the Piece</label>
 </div>
 
+<div id="dialog-get" title="Get Positions">
+    <p></p>        
+    <label style="color:red; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:16px;">Attention! This action will delete all the moves of this session. Are you sure?</label>
+</div>
+
 <div id="dialog-info" title="Information">
     <p></p>        
     <label style="color:red; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:16px;">Attention! This action will delete all the moves of this session. Are you sure?</label>
@@ -401,7 +407,7 @@ document.getElementById('open-or-join-room').onclick = function() {
         SubEvent: 'Join'
     }); 
 
-    //alert(connection.getAllParticipants().length);
+    //alert(connection.userid); ok
 
     $('#DivTextChat').append('<span style="color:red; font-size:15px; font-family:Arial,Helvetica,sans-serif; font-weight:bold">'+ 
                         'SYS: ' + '</span>' + 
@@ -889,7 +895,10 @@ if (roomid && roomid.length) {
         $('#BtnSave').button();
         $('#BtnSet').button();
         $('#BtnPGN').button();
-        $('#BtnFen').button();        
+        $('#BtnFen').button();   
+        
+        $('#BtnGet').button();
+
         $('#BtnClearAll').button();        
         $('#BtnCutMoves').button();
         $('#BtnDelete').button();
@@ -916,6 +925,15 @@ if (roomid && roomid.length) {
         
         $('#BtnFen').click(function(){
             $('#dialog-fen').dialog('open');                       
+        });
+
+        $('#BtnGet').click(function(){
+            var cChanel = $('#room-id').val(); 
+            connection.getSocket().emit('MiEvento',{
+                IdSenderWhoAsk: connection.userid,
+                Chanel: cChanel,
+                SubEvent: 'GetVar'
+            });                           
         });
         
         $('#BtnClearAll').click(function(){
@@ -1024,6 +1042,23 @@ if (roomid && roomid.length) {
             }
 	);        
         
+        $('#dialog-get').dialog({
+		autoOpen: false,
+		height: 270,
+		width: 390,
+		modal: true,			
+		show: 'blind',
+		hide: 'explode',
+		buttons: {
+                        Ok: function() {
+                            ClearAll();
+                            $(this).dialog('close');						
+                        },'Cancel': function() {
+                            $(this).dialog('close');
+                    }
+		    }
+	    });
+    
         $('#dialog-info').dialog({
 		autoOpen: false,
 		height: 270,
@@ -1578,7 +1613,22 @@ if (roomid && roomid.length) {
                     }else if (Message.SubEvent == 'SendBorrarCas') {
                         DibujarCasillas();
                         aColorCas = [];
+                    }else if (Message.SubEvent == 'GetVar') {
+                        //alert(Message.IdSenderWhoAsk)
+                        var cChanel = $('#room-id').val();
+                        connection.getSocket().emit('MiEvento',{
+                            Chanel: cChanel,
+                            SubEvent: 'GetVarBack',
+                            IdSenderWhoAsk: Message.IdSenderWhoAsk,
+                            aVarTam: aVariantes.length                        
+                        });
+                    }else if (Message.SubEvent == 'GetVarBack') {
+                        if (Message.IdSenderWhoAsk == connection.userid){
+                            //alert(Message.aVarTam)
+                            $('#dialog-get').dialog('open');
+                        }
                     }
+
                 }           
             
             });            

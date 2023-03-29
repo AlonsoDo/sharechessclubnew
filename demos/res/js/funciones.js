@@ -62,6 +62,9 @@ var BufferNodoPadre2;
 var BufferContPosi2;
 var Symbol = '';
 var aFENs = [];
+var nContGets;
+var nHeightDivGet;
+var IdSenderWhoAsk;
 
 function Reset(){
     
@@ -4619,4 +4622,36 @@ function BuscarLugar(Elemento){
     console.log('Lugar: ' + Lugar)
 
     return Lugar;
+}
+
+function DialogGetOpen(Message){
+
+    $('#divget').height(nHeightDivGet);
+    
+    // Cargar datos de otros participantes
+    $('#divget').append('<div id="divget' + nContGets + '" style="background-color:#e8e8e8; border:2px white solid; width:438px; height:50px; margin: 4px auto 0 auto;">');
+
+    $('#divget'+nContGets).append('<input type="radio" name="radioget" id="radioget' + nContGets + '" value="' + Message.IdSenderWhoGet + '" style="float:left; margin-left:20px; margin-top:20px;">');
+    $('#divget'+nContGets).append('<label for="labelget' + nContGets + '" style="float:left; margin-left:20px; margin-top:20px;">' + (Message.aVarTam - 1) + ' Moves From: ' + Message.NickSenderWhoGet + '</label>');
+
+    $('input:radio:first-child').attr('checked',true);
+    
+    nContGets++;
+    nHeightDivGet = nHeightDivGet + 60;
+
+    IdSenderWhoAsk = Message.IdSenderWhoAsk;    
+}
+
+function GetDataPositions(){
+    var cChanel = $('#room-id').val();
+    connection.getSocket().emit('MiEvento',{
+            Chanel: cChanel,
+            SubEvent: 'GetVar2',
+            IdSenderWhoAsk: IdSenderWhoAsk,
+            IdSenderWhoGet: $("input[name='radioget']:checked").val()                        
+    });
+}
+
+function UpdatePosiGet(Message){
+    MoveClickEvent(Message);
 }
